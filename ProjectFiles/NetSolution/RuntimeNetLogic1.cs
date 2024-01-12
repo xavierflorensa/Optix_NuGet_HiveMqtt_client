@@ -39,7 +39,7 @@ public class RuntimeNetLogic1 : BaseNetLogic
     }
     [ExportMethod]
     
-    public async void Publish()
+    public async void Publish(NodeId textboxNodeId)
     {
         // Setup Client options and instantiate
         var options = new HiveMQClientOptionsBuilder().WithBroker("broker.hivemq.com")
@@ -50,6 +50,10 @@ public class RuntimeNetLogic1 : BaseNetLogic
         // Connect to the MQTT broker
         var connectResult = await client.ConnectAsync().ConfigureAwait(false);
         // Publish a message
-        var publishResult = await client.PublishAsync("topic1/example", "Hello World");
+         var textbox = InformationModel.Get<TextBox>(textboxNodeId);
+         string messagetosend = textbox.Text;
+         var publishResult = await client.PublishAsync("topic1/example", messagetosend);
     }
+
+    
 }
