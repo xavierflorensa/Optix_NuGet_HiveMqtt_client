@@ -1,0 +1,9 @@
+Name: NetLogic
+Type: NetLogicCategoryFolder
+Children:
+- Name: RuntimeNetLogic1
+  Id: g=4d486a38eb4a18a07c203611677a5e97
+  Type: NetLogic
+  Children:
+  - Class: Method
+    Name: Publish
