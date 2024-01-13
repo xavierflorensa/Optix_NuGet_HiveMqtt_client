@@ -1,2 +1,11 @@
 Name: Model
 Type: ModelCategoryFolder
+Children:
+- Name: AButtonIsPressed
+  Type: BaseDataVariableType
+  DataType: Boolean
+  Value: false
+- Name: Message
+  Type: BaseDataVariableType
+  DataType: String
+  Value: "0"

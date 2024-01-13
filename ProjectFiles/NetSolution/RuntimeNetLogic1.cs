@@ -16,18 +16,37 @@ using System.Net.Http;
 
 public class RuntimeNetLogic1 : BaseNetLogic
 {
-    public override void Start()
+    public override async void Start()
     {
-        // Insert code to be executed when the user-defined logic is started
+        bool abuttonispressed=false;
+        var Abuttonispressed = Project.Current.GetVariable("Model/AButtonIsPressed");
         // Setup Client options and instantiate
-        /*var options = new HiveMQClientOptionsBuilder().WithBroker("broker.hivemq.com")
+        var options = new HiveMQClientOptionsBuilder().WithBroker("broker.hivemq.com")
             .WithPort(1883)
             .WithUseTls(false)
             .Build();
-    */
-       //var client = new HiveMQClient(options);
+    
+        var client = new HiveMQClient(options);
         // Connect to the MQTT broker
-        //var connectResult = await client.ConnectAsync().ConfigureAwait(false);
+        var connectResult = await client.ConnectAsync().ConfigureAwait(false);
+        //hold until a button is pressed
+        while (true)
+        {
+            while (!abuttonispressed)
+            {
+            //holds until a button is pressed
+           
+            abuttonispressed = Abuttonispressed.Value;
+            }
+        // Publish a message
+        var Messagetosend = Project.Current.GetVariable("Model/Message");
+        string payload = Messagetosend.Value;
+        //var publishResult = await client.PublishAsync("topic1/example", Messagetosend.Value);
+        var publishResult = await client.PublishAsync("topic1/example", payload);
+        abuttonispressed=false;
+        Abuttonispressed.Value=false;
+        }
+
         // Publish a message
         //var publishResult = await client.PublishAsync("topic1/example", "Hello World");
         
@@ -39,20 +58,10 @@ public class RuntimeNetLogic1 : BaseNetLogic
     }
     [ExportMethod]
     
-    public async void Publish(NodeId textboxNodeId)
+    public void Publish()
     {
-        // Setup Client options and instantiate
-        var options = new HiveMQClientOptionsBuilder().WithBroker("broker.hivemq.com")
-            .WithPort(1883)
-            .WithUseTls(false)
-            .Build();
-        var client = new HiveMQClient(options);
-        // Connect to the MQTT broker
-        var connectResult = await client.ConnectAsync().ConfigureAwait(false);
-        // Publish a message
-         var textbox = InformationModel.Get<TextBox>(textboxNodeId);
-         string messagetosend = textbox.Text;
-         var publishResult = await client.PublishAsync("topic1/example", messagetosend);
+        var Abuttonispressed = Project.Current.GetVariable("Model/AButtonIsPressed");
+        Abuttonispressed.Value=true;
     }
 
     

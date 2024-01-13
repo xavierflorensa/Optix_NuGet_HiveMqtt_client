@@ -279,18 +279,6 @@ Children:
             Type: BaseDataVariableType
             DataType: String
             Value: "Publish"
-          - Name: InputArguments
-            Type: BaseObjectType
-            Children:
-            - Name: textboxNodeId
-              Type: BaseDataVariableType
-              DataType: NodeId
-              Value: {"IdType":0,"Id":0,"Namespace":-1}
-              Children:
-              - Name: DynamicLink
-                Type: DynamicLink
-                DataType: NodePath
-                Value: "../../../../../../TextBox1@NodeId"
       - Name: EventArguments
         Type: MouseClickEvent
         Children:
@@ -379,6 +367,17 @@ Children:
       Type: BaseDataVariableType
       DataType: LocalizedText
       Value: {"NamespaceIndex":-1,"LocaleId":"","Text":""}
+      Children:
+      - Name: DynamicLink
+        Type: DynamicLink
+        DataType: NodePath
+        Value: "/Objects/Optix_NuGet_HiveMqtt_client/Model/Message@Value"
+        Children:
+        - Name: Mode
+          Type: BaseVariableType
+          DataType: DynamicLinkMode
+          ModellingRule: Optional
+          Value: 2
     - Name: Width
       Type: BaseVariableType
       DataType: Size
